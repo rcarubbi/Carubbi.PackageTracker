@@ -1,0 +1,7 @@
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\bin\Release\Carubbi.PackageTracker.BLL.dll
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\bin\Release\Carubbi.PackageTracker.BLL.pdb
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\bin\Release\Google.TTS.dll
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\bin\Release\Google.TTS.pdb
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\obj\Release\ResolveAssemblyReference.cache
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\obj\Release\Carubbi.PackageTracker.BLL.dll
+F:\bkp\C#\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.BLL\obj\Release\Carubbi.PackageTracker.BLL.pdb

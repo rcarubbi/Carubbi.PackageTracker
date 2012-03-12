@@ -1,0 +1,16 @@
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Carubbi.PackageTracker.UI.exe
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Carubbi.PackageTracker.UI.pdb
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Carubbi.PackageTracker.BLL.dll
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Carubbi.PackageTracker.BLL.pdb
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.frmPackageTracker.resources
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.Properties.Resources.resources
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.csproj.GenerateResource.Cache
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.exe
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.pdb
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Microsoft.DirectX.dll
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Google.TTS.dll
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\bin\Debug\Google.TTS.pdb
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.frmConfig.resources
+C:\Users\rapbbii\Documents\Visual Studio 2008\Projects\Carubbi.PackageTracker\Carubbi.PackageTracker.UI\obj\Debug\Carubbi.PackageTracker.UI.frmUpdatesPopup.resources
