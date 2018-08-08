@@ -1,17 +1,18 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.Specialized;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Runtime.Serialization;
+using System.Linq;
 using System.Net;
-using System.Windows.Forms;
-using System.Timers;
+using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Web.UI.HtmlControls;
+using System.Timers;
 using System.Web;
+using Google.TTS;
+
 
 namespace Carubbi.PackageTracker.BLL
 {
@@ -105,22 +106,20 @@ namespace Carubbi.PackageTracker.BLL
             set
             {
                 _state = value;
-                if (StatusModified != null)
-                    StatusModified(this, EventArgs.Empty);
+                StatusModified?.Invoke(this, EventArgs.Empty);
             }
 
         }
 
-        public delegate HtmlDocument LoadHtmlDocument(string htmlText);
 
-        private LoadHtmlDocument _loadHtml;
 
-        public PackageMonitor(LoadHtmlDocument loadMethod)
+
+
+        public PackageMonitor()
         {
-            _loadHtml = loadMethod;
             this.Packages = new List<Package>();
             this.State = MonitorState.Stopped;
-            this.Path = Application.StartupPath;
+            this.Path = System.Windows.Forms.Application.StartupPath;
             this.Config = new MonitorConfig();
             LoadConfig();
         }
@@ -131,8 +130,8 @@ namespace Carubbi.PackageTracker.BLL
 
         private System.Timers.Timer _timer;
 
-        private const string URL_CORREIO = "http://websro.correios.com.br/sro_bin/txect01$.QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI={0}";
-        private const string PROXY_PATH = "http://proxy.itau/accelerated_pac_base.pac";
+        private const string URL_CORREIO = "http://www2.correios.com.br/sistemas/rastreamento/ctrl/ctrlRastreamento.cfm";
+
         private const string URL_SMS = "http://200.190.61.201:50296/br/contax_tenda?phone={0}&msgtext={1}&msgid=34126&user=contax_tenda&pwd={2}";
 
         public List<Package> Packages
@@ -207,13 +206,15 @@ namespace Carubbi.PackageTracker.BLL
                 case MonitorState.Running:
                     throw new ApplicationException("Aguarde até o final do processamento");
 
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
         }
 
         private void Start()
         {
-            Config.ValidateProxy();
+         
 
             _timer = new System.Timers.Timer(Config.Cycle * 60000);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
@@ -236,24 +237,21 @@ namespace Carubbi.PackageTracker.BLL
         private void VerifyPackage(Package p)
         {
 
-            string html = GetHtml(p);
-            List<UpdateEntry> updates = ReadHTML(html);
-            UpdateEqualityComparer comparer = new UpdateEqualityComparer();
+            var html = GetHtml(p);
+            var updates = ReadHTML(html);
+            var comparer = new UpdateEqualityComparer();
             updates = updates.Except(p.Updates, comparer).ToList();
-            if (updates.Count > 0)
+            if (updates.Count <= 0) return;
+
+            p.Updates = updates;
+            this.SavePackages();
+
+            foreach (var u in updates)
             {
-                p.Updates = updates;
-                this.SavePackages();
-
-                foreach (UpdateEntry u in updates)
-                {
-                    if (PackageModified != null)
-                        PackageModified(this, new NotifyUpdateEventArgs() { Package = p, Update = u });
-
-                    SendSmsNotification(p, u);
-                    PlayVoiceNotification(p, u);
-                    Thread.Sleep(5000);
-                }
+                PackageModified?.Invoke(this, new NotifyUpdateEventArgs() { Package = p, Update = u });
+                SendSmsNotification(p, u);
+                PlayVoiceNotification(p, u);
+                Thread.Sleep(2000);
             }
         }
 
@@ -261,109 +259,99 @@ namespace Carubbi.PackageTracker.BLL
         {
             if (VoiceNotification)
             {
-                Google.TTS.TTSHelper.ProxyPath = PROXY_PATH;
-                Google.TTS.TTSHelper.ProxyDomain = this.Config.ProxyDomain;
-                Google.TTS.TTSHelper.ProxyPassword = this.Config.ProxyPassword;
-                Google.TTS.TTSHelper.ProxyUserName = this.Config.ProxyUserName;
-                Google.TTS.TTSHelper.ReproduzirSincrono(p.GetVoiceMessage(u), true);
+                Google.TTS.TtsHelper.ReproduzirSincrono(p.GetVoiceMessage(u), Idioma.Portugues);
             }
         }
 
         private void SendSmsNotification(Package p, UpdateEntry u)
         {
-            if (SmsNotification)
+            if (!SmsNotification) return;
+            if (string.IsNullOrEmpty(Config.PhoneNumber)) return;
+            try
             {
-                if (!string.IsNullOrEmpty(Config.PhoneNumber))
-                {
-                    try
-                    {
-                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(URL_SMS, Config.PhoneNumber, HttpUtility.UrlEncode(p.GetMessage(u)), Config.SmsPassword));
-                        request.Proxy = WebRequest.GetSystemWebProxy();
-                        request.Method = "get";
-                        request.Proxy.Credentials = new NetworkCredential(Config.ProxyUserName, Config.ProxyPassword, Config.ProxyDomain);
-                        request.BeginGetResponse(null, null);
-                        request = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ApplicationException(string.Format("Não foi possível enviar notificação via sms para {0}", Config.PhoneNumber), ex);
-                    }
-                }
+                var request = (HttpWebRequest)WebRequest.Create(string.Format(URL_SMS, Config.PhoneNumber, HttpUtility.UrlEncode(p.GetMessage(u)), Config.SmsPassword));
+                request.Method = "get";
+                request.BeginGetResponse(null, null);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Não foi possível enviar notificação via sms para {Config.PhoneNumber}", ex);
             }
         }
 
-        private string GetHtml(Package p)
+        private static string GetHtml(Package p)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(URL_CORREIO, p.TrackNumber));
-            request.Proxy = WebRequest.GetSystemWebProxy();
-            request.Proxy.Credentials = new NetworkCredential(Config.ProxyUserName, Config.ProxyPassword, Config.ProxyDomain);
-            WebResponse response = request.GetResponse();
-            Stream ms = response.GetResponseStream();
-            string html = string.Empty;
-            using (TextReader tr = new StreamReader(ms, Encoding.Default))
-                html = tr.ReadToEnd();
+            var client = new HttpClient();
+            var values = new Dictionary<string, string>
+            {
+                { "acao", "track" },
+                { "objetos", p.TrackNumber }
+            };
+            var content = new FormUrlEncodedContent(values);
+
+            var response = client.PostAsync(URL_CORREIO, content).Result;
+
+            var html = response.Content.ReadAsStringAsync().Result;
+
             return html;
         }
 
-        private List<UpdateEntry> ReadHTML(string html)
+        private const int DATA_HORA_INDEX = 1;
+        private const int STATUS_INDEX = 3;
+
+        private static List<UpdateEntry> ReadHTML(string html)
         {
-            List<UpdateEntry> updates = new List<UpdateEntry>();
-            HtmlDocument doc = _loadHtml(html);
-            HtmlElementCollection table = doc.GetElementsByTagName("table");
+            var updates = new List<UpdateEntry>();
 
-            string dataHora = string.Empty;
-            string local = string.Empty;
-            string status = string.Empty;
-            int tableChildCount = 1;
-
-            if (table.Count > 0)
+            var data  = string.Empty;
+            var hora = string.Empty;
+            var local = string.Empty;
+            var status = string.Empty;
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            
+            var table = doc.DocumentNode.SelectNodes("//*[contains(@class, 'listEvent')]").FirstOrDefault();
+            if (table == null) return updates;
+            foreach (var tr in table.ChildNodes)
             {
-                foreach (HtmlElement tableChild in table[0].Children)
+                status = string.Empty;
+                var tdCounter = -1;
+                if (tr.NodeType == HtmlNodeType.Text)
+                    continue;
+
+                foreach (var td in tr.ChildNodes)
                 {
+                    tdCounter++;
+                    if (td.NodeType == HtmlNodeType.Text)
+                        continue;
 
-                    int trCount = 1;
-                    foreach (HtmlElement tr in tableChild.Children)
+                    switch (tdCounter)
                     {
-                        if (trCount >= 2)
-                        {
-                            int tdCount = 1;
-                            foreach (HtmlElement td in tr.Children)
-                            {
-                                switch (tdCount)
-                                {
-                                    case 1:
-                                        dataHora = td.InnerText;
-                                        break;
-                                    case 2:
-                                        local = td.InnerText;
-                                        break;
-                                    case 3:
-                                        status = td.InnerText;
-                                        break;
-                                    default:
-                                        break;
-                                }
-
-                                tdCount++;
-                            }
-                            DateTime datahoraTipada;
-                            if (DateTime.TryParse(dataHora, out datahoraTipada))
-                            {
-                                UpdateEntry entry = new UpdateEntry();
-                                entry.DateTime = datahoraTipada;
-                                entry.Local = local;
-                                entry.State = status;
-                                updates.Add(entry);
-                            }
-                        }
-                        trCount++;
+                        case DATA_HORA_INDEX:
+                            data = td.ChildNodes[0].InnerText.Trim();
+                            hora = td.ChildNodes[2].InnerText.Replace("\r", string.Empty).Trim();
+                            local = td.ChildNodes[5].InnerText.Replace("&nbsp;", " ");
+                            break;
+                        case STATUS_INDEX:
+                            status = td.ChildNodes.Aggregate(status, (current, message) => current + message.InnerText);
+                            status = status.Replace("\r", Environment.NewLine).Replace("&nbsp;", " ");
+                            break;
                     }
-                    tableChildCount++;
                 }
+
+
+                var dataHora = $"{data} {hora}";
+                if (!DateTime.TryParse(dataHora, out var datahoraTipada)) continue;
+                var entry = new UpdateEntry
+                {
+                    DateTime = datahoraTipada,
+                    Local = local,
+                    State = Regex.Replace(status, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline).Trim()
+                };
+                updates.Add(entry);
             }
-            UpdateComparer comparer = new UpdateComparer();
-            updates.Sort(0, updates.Count, comparer);
-            return updates;
+
+            return updates.OrderBy(x => x.DateTime).ToList();
         }
 
         private void Stop()
@@ -374,29 +362,28 @@ namespace Carubbi.PackageTracker.BLL
                 _timer.Close();
                 _timer.Dispose();
             }
-            this.State = MonitorState.Stopped;
+            State = MonitorState.Stopped;
         }
 
         public void Refresh()
         {
-
-            Config.ValidateProxy();
-            while (this.State == MonitorState.Running)
+ 
+            while (State == MonitorState.Running)
                 Thread.Sleep(1000);
 
-            MonitorState currentState = this.State;
-            this.State = MonitorState.Running;
-            foreach (Package p in Packages)
+            var currentState = State;
+            State = MonitorState.Running;
+            foreach (var p in Packages)
             {
                 VerifyPackage(p);
             }
-            this.State = currentState;
+            State = currentState;
         }
 
         public void SaveConfig()
         {
-            BinaryFormatter serializer = new BinaryFormatter();
-            FileStream fs = new FileStream(System.IO.Path.Combine(Path, "Config.dat"), FileMode.Create);
+            var serializer = new BinaryFormatter();
+            var fs = new FileStream(System.IO.Path.Combine(Path, "Config.dat"), FileMode.Create);
 
             try
             {
@@ -415,10 +402,10 @@ namespace Carubbi.PackageTracker.BLL
 
         public void LoadConfig()
         {
-            BinaryFormatter serializer = new BinaryFormatter();
+            var serializer = new BinaryFormatter();
             try
             {
-                FileStream fs = new FileStream(System.IO.Path.Combine(Path, "Config.dat"), FileMode.Open);
+                var fs = new FileStream(System.IO.Path.Combine(Path, "Config.dat"), FileMode.Open);
                 try
                 {
                     Config = (MonitorConfig)serializer.Deserialize(fs);
@@ -433,7 +420,7 @@ namespace Carubbi.PackageTracker.BLL
                     fs.Close();
                 }
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
 
             }

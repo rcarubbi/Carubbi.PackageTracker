@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Carubbi.PackageTracker.BLL
 {
@@ -9,7 +7,7 @@ namespace Carubbi.PackageTracker.BLL
     {
         public bool Equals(Package x, Package y)
         {
-            return (x.TrackNumber == y.TrackNumber);
+            return y != null && (x != null && (x.TrackNumber == y.TrackNumber));
         }
 
         public int GetHashCode(Package obj)
@@ -53,7 +51,8 @@ namespace Carubbi.PackageTracker.BLL
 
         public string GetMessage(UpdateEntry update)
         {
-            string message = string.Format("A encomenda '{0}' esta em {1} as {2} - status: {3}", Alias, update.Local, update.DateTime.ToString("dd/MM/yyyy - HH:mm:ss"), update.State);
+            var message =
+                $"A encomenda '{Alias}' esta em {update.Local} as {update.DateTime:dd/MM/yyyy - HH:mm:ss} - status: {update.State}";
             return message.Length > 137 ? message.Substring(0, 137) : message;
         }
 
@@ -61,7 +60,8 @@ namespace Carubbi.PackageTracker.BLL
 
         internal string GetVoiceMessage(UpdateEntry u)
         {
-            return string.Format("às {0} horas e {1} minutos, a encomenda {2} foi modificada para {3}.  ", u.DateTime.Hour, u.DateTime.Minute, Alias, u.State);
+            return
+                $"às {u.DateTime.Hour} horas e {u.DateTime.Minute} minutos, a encomenda {Alias} foi modificada para {u.State}.  ";
         }
     }
 }

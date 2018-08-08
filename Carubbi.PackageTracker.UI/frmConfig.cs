@@ -45,9 +45,6 @@ namespace Carubbi.PackageTracker.UI
             Monitor.Path = txtPath.Text;
             Monitor.Config.PhoneNumber = txtPhoneNumber.Text;
             Monitor.Config.SmsPassword = txtSmsPassword.Text;
-            Monitor.Config.ProxyDomain = txtProxyDomain.Text;
-            Monitor.Config.ProxyUserName = txtProxyUsername.Text;
-            Monitor.Config.ProxyPassword = txtProxyPassword.Text;
             Monitor.SaveConfig();
         }
 
@@ -62,9 +59,7 @@ namespace Carubbi.PackageTracker.UI
             txtPath.Text = Monitor.Path;
             txtPhoneNumber.Text = Monitor.Config.PhoneNumber;
             txtSmsPassword.Text = Monitor.Config.SmsPassword;
-            txtProxyDomain.Text = Monitor.Config.ProxyDomain;
-            txtProxyUsername.Text = Monitor.Config.ProxyUserName;
-            txtProxyPassword.Text = Monitor.Config.ProxyPassword;
+     
         }
 
      

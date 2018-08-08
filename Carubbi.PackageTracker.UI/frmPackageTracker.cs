@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Carubbi.PackageTracker.BLL;
+using System;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Carubbi.PackageTracker.BLL;
-using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Carubbi.PackageTracker.UI
 {
@@ -30,7 +24,7 @@ namespace Carubbi.PackageTracker.UI
             {
                 if (!string.IsNullOrEmpty(txtTrackNumber.Text))
                 {
-                    Package p = new Package() { Alias = txtAlias.Text, TrackNumber = txtTrackNumber.Text };
+                    var p = new Package() { Alias = txtAlias.Text, TrackNumber = txtTrackNumber.Text };
                     if (!_monitor.Packages.Contains(p, Package.CompararPorTrackNumber))
                     {
                         _monitor.Packages.Add(p);
@@ -70,18 +64,17 @@ namespace Carubbi.PackageTracker.UI
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtTrackNumber.Text))
+                if (string.IsNullOrEmpty(txtTrackNumber.Text)) return;
+
+                var p = new Package() { TrackNumber = txtTrackNumber.Text, Alias = txtAlias.Text };
+                if (_monitor.Packages.Contains(p, Package.CompararPorTrackNumber))
                 {
-                    Package p = new Package() { TrackNumber = txtTrackNumber.Text, Alias = txtAlias.Text };
-                    if (_monitor.Packages.Contains(p, Package.CompararPorTrackNumber))
-                    {
-                        Package deletePackage = _monitor.Packages.Single(i => i.TrackNumber == txtTrackNumber.Text);
-                        _monitor.Packages.Remove(deletePackage);
-                        RefreshPackages();
-                    }
-                    else
-                        throw new ApplicationException("Pacote não encontrado");
+                    var deletePackage = _monitor.Packages.Single(i => i.TrackNumber == txtTrackNumber.Text);
+                    _monitor.Packages.Remove(deletePackage);
+                    RefreshPackages();
                 }
+                else
+                    throw new ApplicationException("Pacote não encontrado");
 
             }
             catch (Exception ex)
@@ -105,31 +98,12 @@ namespace Carubbi.PackageTracker.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-        protected HtmlDocument LoadHtml(string html)
-        {
-            if (webBrowser.InvokeRequired)
-            {
-                //instancia o delegate e chama
-                PackageMonitor.LoadHtmlDocument method = new PackageMonitor.LoadHtmlDocument(LoadHtml);
-                object[] parametro = { html };
-                return (HtmlDocument)this.Invoke(method, parametro);
-
-            }
-            else
-            {
-                webBrowser.DocumentText = html;
-                return webBrowser.Document;
-            }
-        }
-
+ 
         private void frmPackageTracker_Load(object sender, EventArgs e)
         {
             try
             {
-                _monitor = new PackageMonitor(LoadHtml);
+                _monitor = new PackageMonitor();
                 _monitor.PackageModified += new EventHandler<NotifyUpdateEventArgs>(_monitor_PackageModified);
                 _monitor.StatusModified += new EventHandler(_monitor_StatusModified);
                 LoadCycles();
@@ -143,28 +117,18 @@ namespace Carubbi.PackageTracker.UI
 
         void _config_Ok(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_monitor.Config.PhoneNumber))
-            {
-                _monitor.SmsNotification = false;
-                _monitor.Config.PhoneNumber = string.Empty;
-                lblStatusSmsNotification.Text = string.Format("Sms Notification: Disabled");
-            }
+            if (!string.IsNullOrEmpty(_monitor.Config.PhoneNumber)) return;
+            _monitor.SmsNotification = false;
+            _monitor.Config.PhoneNumber = string.Empty;
+            lblStatusSmsNotification.Text = string.Format("Sms Notification: Disabled");
         }
 
         void _monitor_StatusModified(object sender, EventArgs e)
         {
-            if (_monitor.State == MonitorState.Running)
-            {
-                ModifyButtons(false);
-            }
-            else
-            {
-
-                ModifyButtons(true);
-            }
+            ModifyButtons(_monitor.State != MonitorState.Running);
 
             lblStatus.Text = _monitor.State.ToString();
-            notifyIcon.Text = string.Format("Package Tracker - {0}", _monitor.State.ToString());
+            notifyIcon.Text = $"Package Tracker - {_monitor.State.ToString()}";
             Application.DoEvents();
         }
 
@@ -174,9 +138,9 @@ namespace Carubbi.PackageTracker.UI
         {
             if (btnAdd.InvokeRequired)
             {
-                Action<bool> method = new Action<bool>(ModifyButtons);
+                var method = new Action<bool>(ModifyButtons);
                 object[] parametro = { enable };
-                this.Invoke(method, parametro);
+                Invoke(method, parametro);
             }
             else
             {
@@ -208,16 +172,16 @@ namespace Carubbi.PackageTracker.UI
 
         private void frmPackageTracker_SizeChanged(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
-                this.Hide();
+            if (WindowState == FormWindowState.Minimized)
+                Hide();
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
+                Show();
+                WindowState = FormWindowState.Normal;
             }
         }
 
@@ -250,28 +214,26 @@ namespace Carubbi.PackageTracker.UI
         private void mnuVoiceNotification_Click(object sender, EventArgs e)
         {
             _monitor.VoiceNotification = !_monitor.VoiceNotification;
-            string voiceNotification = _monitor.VoiceNotification ? "Enabled" : "Disabled";
-            lblStatusVoiceNotification.Text = string.Format("Voice Notification: {0}", voiceNotification);
+            var voiceNotification = _monitor.VoiceNotification ? "Enabled" : "Disabled";
+            lblStatusVoiceNotification.Text = $"Voice Notification: {voiceNotification}";
         }
 
         private void mnuSMSNotification_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(_monitor.Config.PhoneNumber))
+                if (string.IsNullOrEmpty(_monitor.Config.PhoneNumber)) return;
+                _monitor.SmsNotification = !_monitor.SmsNotification;
+                if (_monitor.SmsNotification)
                 {
-                    _monitor.SmsNotification = !_monitor.SmsNotification;
-                    if (_monitor.SmsNotification)
+                    if (string.IsNullOrEmpty(_monitor.Config.SmsPassword))
                     {
-                        if (string.IsNullOrEmpty(_monitor.Config.SmsPassword))
-                        {
-                            _monitor.SmsNotification = false;
-                            throw new ApplicationException("Preencha a senha para habilitar esta funcionalidade");
-                        }
+                        _monitor.SmsNotification = false;
+                        throw new ApplicationException("Preencha a senha para habilitar esta funcionalidade");
                     }
-                    string smsNotification = _monitor.SmsNotification ? "Enabled" : "Disabled";
-                    lblStatusSmsNotification.Text = string.Format("Sms Notification: {0}", smsNotification);
                 }
+                var smsNotification = _monitor.SmsNotification ? "Enabled" : "Disabled";
+                lblStatusSmsNotification.Text = $"Sms Notification: {smsNotification}";
             }
             catch (ApplicationException ex)
             {
@@ -283,12 +245,10 @@ namespace Carubbi.PackageTracker.UI
 
         private void gdvPackages_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                txtAlias.Text = _monitor.Packages[e.RowIndex].Alias;
-                txtTrackNumber.Text = _monitor.Packages[e.RowIndex].TrackNumber;
-                _packageSelected = _monitor.Packages[e.RowIndex];
-            }
+            if (e.RowIndex < 0) return;
+            txtAlias.Text = _monitor.Packages[e.RowIndex].Alias;
+            txtTrackNumber.Text = _monitor.Packages[e.RowIndex].TrackNumber;
+            _packageSelected = _monitor.Packages[e.RowIndex];
         }
 
         private Package _packageSelected;
@@ -308,11 +268,9 @@ namespace Carubbi.PackageTracker.UI
       
         private void frmPackageTracker_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                 e.Cancel = true;
-                 this.WindowState = FormWindowState.Minimized;
-            }
+            if (e.CloseReason != CloseReason.UserClosing) return;
+            e.Cancel = true;
+            this.WindowState = FormWindowState.Minimized;
 
         }
 
@@ -333,7 +291,7 @@ namespace Carubbi.PackageTracker.UI
         {
             try
             {
-                Thread t = new Thread(new ThreadStart(_monitor.Refresh));
+                var t = new Thread(new ThreadStart(_monitor.Refresh));
                 t.Start();
             }
             catch (ApplicationException ex)

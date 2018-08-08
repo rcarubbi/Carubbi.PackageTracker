@@ -28,13 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.grpProxy = new System.Windows.Forms.GroupBox();
-            this.txtProxyPassword = new System.Windows.Forms.TextBox();
-            this.txtProxyDomain = new System.Windows.Forms.TextBox();
-            this.txtProxyUsername = new System.Windows.Forms.TextBox();
-            this.lblProxyDomain = new System.Windows.Forms.Label();
-            this.lblProxyPassword = new System.Windows.Forms.Label();
-            this.lblProxyUsername = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.grpSMS = new System.Windows.Forms.GroupBox();
@@ -45,83 +38,15 @@
             this.grpStorage = new System.Windows.Forms.GroupBox();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.lblStoragePath = new System.Windows.Forms.Label();
-            this.grpProxy.SuspendLayout();
             this.grpSMS.SuspendLayout();
             this.grpStorage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // grpProxy
-            // 
-            this.grpProxy.Controls.Add(this.txtProxyPassword);
-            this.grpProxy.Controls.Add(this.txtProxyDomain);
-            this.grpProxy.Controls.Add(this.txtProxyUsername);
-            this.grpProxy.Controls.Add(this.lblProxyDomain);
-            this.grpProxy.Controls.Add(this.lblProxyPassword);
-            this.grpProxy.Controls.Add(this.lblProxyUsername);
-            this.grpProxy.Location = new System.Drawing.Point(12, 12);
-            this.grpProxy.Name = "grpProxy";
-            this.grpProxy.Size = new System.Drawing.Size(462, 90);
-            this.grpProxy.TabIndex = 0;
-            this.grpProxy.TabStop = false;
-            this.grpProxy.Text = "Proxy";
-            // 
-            // txtProxyPassword
-            // 
-            this.txtProxyPassword.Location = new System.Drawing.Point(113, 42);
-            this.txtProxyPassword.MaxLength = 30;
-            this.txtProxyPassword.Name = "txtProxyPassword";
-            this.txtProxyPassword.PasswordChar = '*';
-            this.txtProxyPassword.Size = new System.Drawing.Size(175, 21);
-            this.txtProxyPassword.TabIndex = 3;
-            // 
-            // txtProxyDomain
-            // 
-            this.txtProxyDomain.Location = new System.Drawing.Point(113, 63);
-            this.txtProxyDomain.MaxLength = 30;
-            this.txtProxyDomain.Name = "txtProxyDomain";
-            this.txtProxyDomain.Size = new System.Drawing.Size(175, 21);
-            this.txtProxyDomain.TabIndex = 5;
-            // 
-            // txtProxyUsername
-            // 
-            this.txtProxyUsername.Location = new System.Drawing.Point(113, 20);
-            this.txtProxyUsername.MaxLength = 9;
-            this.txtProxyUsername.Name = "txtProxyUsername";
-            this.txtProxyUsername.Size = new System.Drawing.Size(175, 21);
-            this.txtProxyUsername.TabIndex = 1;
-            // 
-            // lblProxyDomain
-            // 
-            this.lblProxyDomain.AutoSize = true;
-            this.lblProxyDomain.Location = new System.Drawing.Point(15, 66);
-            this.lblProxyDomain.Name = "lblProxyDomain";
-            this.lblProxyDomain.Size = new System.Drawing.Size(51, 13);
-            this.lblProxyDomain.TabIndex = 4;
-            this.lblProxyDomain.Text = "Domain";
-            // 
-            // lblProxyPassword
-            // 
-            this.lblProxyPassword.AutoSize = true;
-            this.lblProxyPassword.Location = new System.Drawing.Point(15, 45);
-            this.lblProxyPassword.Name = "lblProxyPassword";
-            this.lblProxyPassword.Size = new System.Drawing.Size(61, 13);
-            this.lblProxyPassword.TabIndex = 2;
-            this.lblProxyPassword.Text = "Password";
-            // 
-            // lblProxyUsername
-            // 
-            this.lblProxyUsername.AutoSize = true;
-            this.lblProxyUsername.Location = new System.Drawing.Point(15, 24);
-            this.lblProxyUsername.Name = "lblProxyUsername";
-            this.lblProxyUsername.Size = new System.Drawing.Size(65, 13);
-            this.lblProxyUsername.TabIndex = 0;
-            this.lblProxyUsername.Text = "Username";
-            // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(318, 269);
+            this.btnCancel.Location = new System.Drawing.Point(312, 188);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 31);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -129,9 +54,9 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(399, 269);
+            this.btnOK.Location = new System.Drawing.Point(393, 188);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(75, 31);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -143,36 +68,36 @@
             this.grpSMS.Controls.Add(this.txtPhoneNumber);
             this.grpSMS.Controls.Add(this.lblSmsPassword);
             this.grpSMS.Controls.Add(this.lblPhoneNumber);
-            this.grpSMS.Location = new System.Drawing.Point(12, 108);
+            this.grpSMS.Location = new System.Drawing.Point(12, 12);
             this.grpSMS.Name = "grpSMS";
-            this.grpSMS.Size = new System.Drawing.Size(462, 81);
+            this.grpSMS.Size = new System.Drawing.Size(462, 101);
             this.grpSMS.TabIndex = 1;
             this.grpSMS.TabStop = false;
             this.grpSMS.Text = "SMS";
             // 
             // txtSmsPassword
             // 
-            this.txtSmsPassword.Location = new System.Drawing.Point(113, 43);
+            this.txtSmsPassword.Location = new System.Drawing.Point(157, 56);
             this.txtSmsPassword.MaxLength = 30;
             this.txtSmsPassword.Name = "txtSmsPassword";
             this.txtSmsPassword.PasswordChar = '*';
-            this.txtSmsPassword.Size = new System.Drawing.Size(175, 21);
+            this.txtSmsPassword.Size = new System.Drawing.Size(299, 28);
             this.txtSmsPassword.TabIndex = 3;
             // 
             // txtPhoneNumber
             // 
-            this.txtPhoneNumber.Location = new System.Drawing.Point(113, 22);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(157, 22);
             this.txtPhoneNumber.MaxLength = 10;
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(175, 21);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(299, 28);
             this.txtPhoneNumber.TabIndex = 1;
             // 
             // lblSmsPassword
             // 
             this.lblSmsPassword.AutoSize = true;
-            this.lblSmsPassword.Location = new System.Drawing.Point(15, 46);
+            this.lblSmsPassword.Location = new System.Drawing.Point(15, 59);
             this.lblSmsPassword.Name = "lblSmsPassword";
-            this.lblSmsPassword.Size = new System.Drawing.Size(61, 13);
+            this.lblSmsPassword.Size = new System.Drawing.Size(89, 20);
             this.lblSmsPassword.TabIndex = 2;
             this.lblSmsPassword.Text = "Password";
             // 
@@ -181,7 +106,7 @@
             this.lblPhoneNumber.AutoSize = true;
             this.lblPhoneNumber.Location = new System.Drawing.Point(15, 25);
             this.lblPhoneNumber.Name = "lblPhoneNumber";
-            this.lblPhoneNumber.Size = new System.Drawing.Size(91, 13);
+            this.lblPhoneNumber.Size = new System.Drawing.Size(136, 20);
             this.lblPhoneNumber.TabIndex = 0;
             this.lblPhoneNumber.Text = "Phone Number";
             // 
@@ -189,7 +114,7 @@
             // 
             this.grpStorage.Controls.Add(this.txtPath);
             this.grpStorage.Controls.Add(this.lblStoragePath);
-            this.grpStorage.Location = new System.Drawing.Point(15, 200);
+            this.grpStorage.Location = new System.Drawing.Point(15, 119);
             this.grpStorage.Name = "grpStorage";
             this.grpStorage.Size = new System.Drawing.Size(459, 63);
             this.grpStorage.TabIndex = 2;
@@ -201,7 +126,7 @@
             this.txtPath.Location = new System.Drawing.Point(110, 23);
             this.txtPath.MaxLength = 200;
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(343, 21);
+            this.txtPath.Size = new System.Drawing.Size(343, 28);
             this.txtPath.TabIndex = 1;
             // 
             // lblStoragePath
@@ -209,21 +134,20 @@
             this.lblStoragePath.AutoSize = true;
             this.lblStoragePath.Location = new System.Drawing.Point(15, 26);
             this.lblStoragePath.Name = "lblStoragePath";
-            this.lblStoragePath.Size = new System.Drawing.Size(32, 13);
+            this.lblStoragePath.Size = new System.Drawing.Size(47, 20);
             this.lblStoragePath.TabIndex = 0;
             this.lblStoragePath.Text = "Path";
             // 
             // frmConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 301);
+            this.ClientSize = new System.Drawing.Size(484, 231);
             this.ControlBox = false;
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.grpStorage);
             this.Controls.Add(this.grpSMS);
-            this.Controls.Add(this.grpProxy);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -231,8 +155,6 @@
             this.Name = "frmConfig";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.frmConfig_Load);
-            this.grpProxy.ResumeLayout(false);
-            this.grpProxy.PerformLayout();
             this.grpSMS.ResumeLayout(false);
             this.grpSMS.PerformLayout();
             this.grpStorage.ResumeLayout(false);
@@ -243,13 +165,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpProxy;
-        private System.Windows.Forms.TextBox txtProxyPassword;
-        private System.Windows.Forms.TextBox txtProxyDomain;
-        private System.Windows.Forms.TextBox txtProxyUsername;
-        private System.Windows.Forms.Label lblProxyDomain;
-        private System.Windows.Forms.Label lblProxyPassword;
-        private System.Windows.Forms.Label lblProxyUsername;
+ 
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.GroupBox grpSMS;
