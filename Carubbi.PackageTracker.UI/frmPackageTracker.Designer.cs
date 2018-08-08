@@ -37,7 +37,6 @@
             this.lblTrackNumber = new System.Windows.Forms.Label();
             this.grpPackageData = new System.Windows.Forms.GroupBox();
             this.btnSeeUpdates = new System.Windows.Forms.Button();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.txtTrackNumber = new System.Windows.Forms.TextBox();
             this.txtAlias = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -74,22 +73,25 @@
             // 
             // gdvPackages
             // 
+            this.gdvPackages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gdvPackages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gdvPackages.Location = new System.Drawing.Point(16, 119);
-            this.gdvPackages.Margin = new System.Windows.Forms.Padding(4);
+            this.gdvPackages.Location = new System.Drawing.Point(15, 133);
+            this.gdvPackages.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gdvPackages.Name = "gdvPackages";
             this.gdvPackages.ReadOnly = true;
             this.gdvPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gdvPackages.Size = new System.Drawing.Size(660, 352);
+            this.gdvPackages.Size = new System.Drawing.Size(638, 248);
             this.gdvPackages.TabIndex = 1;
             this.gdvPackages.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gdvPackages_CellMouseClick);
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(341, 40);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRemove.Location = new System.Drawing.Point(348, 57);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(43, 24);
+            this.btnRemove.Size = new System.Drawing.Size(39, 27);
             this.btnRemove.TabIndex = 5;
             this.btnRemove.Text = "-";
             this.toolTip.SetToolTip(this.btnRemove, "Remove Pakcage");
@@ -98,10 +100,10 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(290, 40);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAdd.Location = new System.Drawing.Point(301, 57);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(43, 24);
+            this.btnAdd.Size = new System.Drawing.Size(39, 27);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "+";
             this.toolTip.SetToolTip(this.btnAdd, "Add Package");
@@ -111,79 +113,72 @@
             // lblAlias
             // 
             this.lblAlias.AutoSize = true;
-            this.lblAlias.Location = new System.Drawing.Point(8, 19);
+            this.lblAlias.Location = new System.Drawing.Point(10, 27);
             this.lblAlias.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAlias.Name = "lblAlias";
-            this.lblAlias.Size = new System.Drawing.Size(36, 14);
+            this.lblAlias.Size = new System.Drawing.Size(48, 18);
             this.lblAlias.TabIndex = 0;
             this.lblAlias.Text = "Alias";
             // 
             // lblTrackNumber
             // 
             this.lblTrackNumber.AutoSize = true;
-            this.lblTrackNumber.Location = new System.Drawing.Point(8, 45);
+            this.lblTrackNumber.Location = new System.Drawing.Point(9, 59);
             this.lblTrackNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTrackNumber.Name = "lblTrackNumber";
-            this.lblTrackNumber.Size = new System.Drawing.Size(98, 14);
+            this.lblTrackNumber.Size = new System.Drawing.Size(125, 18);
             this.lblTrackNumber.TabIndex = 2;
             this.lblTrackNumber.Text = "Track Number:";
             // 
             // grpPackageData
             // 
+            this.grpPackageData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpPackageData.Controls.Add(this.btnSeeUpdates);
-            this.grpPackageData.Controls.Add(this.webBrowser);
             this.grpPackageData.Controls.Add(this.txtTrackNumber);
             this.grpPackageData.Controls.Add(this.btnRemove);
             this.grpPackageData.Controls.Add(this.btnAdd);
             this.grpPackageData.Controls.Add(this.txtAlias);
             this.grpPackageData.Controls.Add(this.lblAlias);
             this.grpPackageData.Controls.Add(this.lblTrackNumber);
-            this.grpPackageData.Location = new System.Drawing.Point(16, 28);
-            this.grpPackageData.Margin = new System.Windows.Forms.Padding(4);
+            this.grpPackageData.Location = new System.Drawing.Point(15, 26);
+            this.grpPackageData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpPackageData.Name = "grpPackageData";
-            this.grpPackageData.Padding = new System.Windows.Forms.Padding(4);
-            this.grpPackageData.Size = new System.Drawing.Size(660, 85);
+            this.grpPackageData.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpPackageData.Size = new System.Drawing.Size(638, 101);
             this.grpPackageData.TabIndex = 0;
             this.grpPackageData.TabStop = false;
             this.grpPackageData.Text = "Package Data";
             // 
             // btnSeeUpdates
             // 
-            this.btnSeeUpdates.Location = new System.Drawing.Point(392, 40);
-            this.btnSeeUpdates.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSeeUpdates.Location = new System.Drawing.Point(395, 57);
+            this.btnSeeUpdates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSeeUpdates.Name = "btnSeeUpdates";
-            this.btnSeeUpdates.Size = new System.Drawing.Size(43, 24);
+            this.btnSeeUpdates.Size = new System.Drawing.Size(39, 27);
             this.btnSeeUpdates.TabIndex = 6;
             this.btnSeeUpdates.Text = "...";
             this.toolTip.SetToolTip(this.btnSeeUpdates, "Show Updates");
             this.btnSeeUpdates.UseVisualStyleBackColor = true;
             this.btnSeeUpdates.Click += new System.EventHandler(this.btnSeeUpdates_Click);
             // 
-            // webBrowser
-            // 
-            this.webBrowser.Location = new System.Drawing.Point(570, 42);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(27, 22);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(73, 22);
-            this.webBrowser.TabIndex = 7;
-            this.webBrowser.Visible = false;
-            // 
             // txtTrackNumber
             // 
-            this.txtTrackNumber.Location = new System.Drawing.Point(114, 41);
-            this.txtTrackNumber.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTrackNumber.Location = new System.Drawing.Point(141, 57);
+            this.txtTrackNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTrackNumber.MaxLength = 13;
             this.txtTrackNumber.Name = "txtTrackNumber";
-            this.txtTrackNumber.Size = new System.Drawing.Size(168, 22);
+            this.txtTrackNumber.Size = new System.Drawing.Size(153, 27);
             this.txtTrackNumber.TabIndex = 3;
             // 
             // txtAlias
             // 
-            this.txtAlias.Location = new System.Drawing.Point(52, 16);
-            this.txtAlias.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAlias.Location = new System.Drawing.Point(64, 25);
+            this.txtAlias.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtAlias.Name = "txtAlias";
-            this.txtAlias.Size = new System.Drawing.Size(591, 22);
+            this.txtAlias.Size = new System.Drawing.Size(548, 27);
             this.txtAlias.TabIndex = 1;
             // 
             // notifyIcon
@@ -197,79 +192,82 @@
             // 
             // notifyMenu
             // 
+            this.notifyMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.notifyMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuRefresh,
             this.mnuStartStopContext,
             this.mnuSeparator,
             this.mnuExit});
             this.notifyMenu.Name = "notifyMenu";
-            this.notifyMenu.Size = new System.Drawing.Size(142, 76);
+            this.notifyMenu.Size = new System.Drawing.Size(185, 100);
             // 
             // mnuRefresh
             // 
             this.mnuRefresh.Name = "mnuRefresh";
-            this.mnuRefresh.Size = new System.Drawing.Size(141, 22);
+            this.mnuRefresh.Size = new System.Drawing.Size(184, 30);
             this.mnuRefresh.Text = "Refresh Now";
             this.mnuRefresh.Click += new System.EventHandler(this.mnuRefresh_Click);
             // 
             // mnuStartStopContext
             // 
             this.mnuStartStopContext.Name = "mnuStartStopContext";
-            this.mnuStartStopContext.Size = new System.Drawing.Size(141, 22);
+            this.mnuStartStopContext.Size = new System.Drawing.Size(184, 30);
             this.mnuStartStopContext.Text = "Start/Stop";
             this.mnuStartStopContext.Click += new System.EventHandler(this.mnuStartStopContext_Click);
             // 
             // mnuSeparator
             // 
             this.mnuSeparator.Name = "mnuSeparator";
-            this.mnuSeparator.Size = new System.Drawing.Size(138, 6);
+            this.mnuSeparator.Size = new System.Drawing.Size(181, 6);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(141, 22);
+            this.mnuExit.Size = new System.Drawing.Size(184, 30);
             this.mnuExit.Text = "Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // statusStrip
             // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.lblStatusVoiceNotification,
             this.lblStatusSmsNotification});
-            this.statusStrip.Location = new System.Drawing.Point(0, 479);
+            this.statusStrip.Location = new System.Drawing.Point(0, 378);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(689, 22);
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip.Size = new System.Drawing.Size(668, 30);
             this.statusStrip.TabIndex = 6;
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 17);
+            this.lblStatus.Size = new System.Drawing.Size(0, 25);
             // 
             // lblStatusVoiceNotification
             // 
             this.lblStatusVoiceNotification.Name = "lblStatusVoiceNotification";
-            this.lblStatusVoiceNotification.Size = new System.Drawing.Size(153, 17);
+            this.lblStatusVoiceNotification.Size = new System.Drawing.Size(229, 25);
             this.lblStatusVoiceNotification.Text = "Voice Notification: Disabled";
             // 
             // lblStatusSmsNotification
             // 
             this.lblStatusSmsNotification.Name = "lblStatusSmsNotification";
-            this.lblStatusSmsNotification.Size = new System.Drawing.Size(146, 17);
+            this.lblStatusSmsNotification.Size = new System.Drawing.Size(221, 25);
             this.lblStatusSmsNotification.Text = "Sms Notification: Disabled";
             // 
             // menuStrip
             // 
             this.menuStrip.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuMonitor,
             this.mnuOptions});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(689, 24);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
+            this.menuStrip.Size = new System.Drawing.Size(668, 26);
             this.menuStrip.TabIndex = 7;
             // 
             // mnuMonitor
@@ -281,39 +279,39 @@
             this.mnuSave,
             this.mnuLoad});
             this.mnuMonitor.Name = "mnuMonitor";
-            this.mnuMonitor.Size = new System.Drawing.Size(61, 20);
+            this.mnuMonitor.Size = new System.Drawing.Size(85, 24);
             this.mnuMonitor.Text = "Monitor";
             // 
             // mnuStartStop
             // 
             this.mnuStartStop.Name = "mnuStartStop";
-            this.mnuStartStop.Size = new System.Drawing.Size(161, 22);
+            this.mnuStartStop.Size = new System.Drawing.Size(217, 30);
             this.mnuStartStop.Text = "Start/Stop";
             this.mnuStartStop.Click += new System.EventHandler(this.mnuStartStop_Click);
             // 
             // mnuRefreshNow
             // 
             this.mnuRefreshNow.Name = "mnuRefreshNow";
-            this.mnuRefreshNow.Size = new System.Drawing.Size(161, 22);
+            this.mnuRefreshNow.Size = new System.Drawing.Size(217, 30);
             this.mnuRefreshNow.Text = "Refresh Now";
             this.mnuRefreshNow.Click += new System.EventHandler(this.mnuRefreshNow_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
             // 
             // mnuSave
             // 
             this.mnuSave.Name = "mnuSave";
-            this.mnuSave.Size = new System.Drawing.Size(161, 22);
+            this.mnuSave.Size = new System.Drawing.Size(217, 30);
             this.mnuSave.Text = "Save Packages";
             this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
             // 
             // mnuLoad
             // 
             this.mnuLoad.Name = "mnuLoad";
-            this.mnuLoad.Size = new System.Drawing.Size(161, 22);
+            this.mnuLoad.Size = new System.Drawing.Size(217, 30);
             this.mnuLoad.Text = "Load Packages";
             this.mnuLoad.Click += new System.EventHandler(this.mnuLoad_Click);
             // 
@@ -324,7 +322,7 @@
             this.notificationsToolStripMenuItem,
             this.mnuConfig});
             this.mnuOptions.Name = "mnuOptions";
-            this.mnuOptions.Size = new System.Drawing.Size(62, 20);
+            this.mnuOptions.Size = new System.Drawing.Size(87, 24);
             this.mnuOptions.Text = "Options";
             // 
             // mnuCycles
@@ -332,13 +330,13 @@
             this.mnuCycles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cboCycles});
             this.mnuCycles.Name = "mnuCycles";
-            this.mnuCycles.Size = new System.Drawing.Size(169, 22);
+            this.mnuCycles.Size = new System.Drawing.Size(234, 30);
             this.mnuCycles.Text = "Cycles (Minutes)";
             // 
             // cboCycles
             // 
             this.cboCycles.Name = "cboCycles";
-            this.cboCycles.Size = new System.Drawing.Size(121, 23);
+            this.cboCycles.Size = new System.Drawing.Size(121, 33);
             // 
             // notificationsToolStripMenuItem
             // 
@@ -346,44 +344,45 @@
             this.mnuVoiceNotification,
             this.mnuSMSNotification});
             this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(234, 30);
             this.notificationsToolStripMenuItem.Text = "Notifications";
             // 
             // mnuVoiceNotification
             // 
+            this.mnuVoiceNotification.CheckOnClick = true;
             this.mnuVoiceNotification.Name = "mnuVoiceNotification";
-            this.mnuVoiceNotification.Size = new System.Drawing.Size(172, 22);
+            this.mnuVoiceNotification.Size = new System.Drawing.Size(239, 30);
             this.mnuVoiceNotification.Text = "Voice Notification";
             this.mnuVoiceNotification.Click += new System.EventHandler(this.mnuVoiceNotification_Click);
             // 
             // mnuSMSNotification
             // 
+            this.mnuSMSNotification.CheckOnClick = true;
             this.mnuSMSNotification.Name = "mnuSMSNotification";
-            this.mnuSMSNotification.Size = new System.Drawing.Size(172, 22);
+            this.mnuSMSNotification.Size = new System.Drawing.Size(239, 30);
             this.mnuSMSNotification.Text = "SMS Notification";
             this.mnuSMSNotification.Click += new System.EventHandler(this.mnuSMSNotification_Click);
             // 
             // mnuConfig
             // 
             this.mnuConfig.Name = "mnuConfig";
-            this.mnuConfig.Size = new System.Drawing.Size(169, 22);
+            this.mnuConfig.Size = new System.Drawing.Size(234, 30);
             this.mnuConfig.Text = "Configuration";
             this.mnuConfig.Click += new System.EventHandler(this.mnuConnectionVariables_Click);
             // 
             // frmPackageTracker
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 501);
+            this.ClientSize = new System.Drawing.Size(668, 408);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.gdvPackages);
             this.Controls.Add(this.grpPackageData);
-            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "frmPackageTracker";
             this.Text = "Package Tracker";
@@ -422,7 +421,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuOptions;
         private System.Windows.Forms.ToolStripMenuItem mnuLoad;
         private System.Windows.Forms.ToolStripMenuItem mnuSave;
-        private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.ToolStripMenuItem notificationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuVoiceNotification;
         private System.Windows.Forms.ToolStripMenuItem mnuSMSNotification;
