@@ -2,11 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Carubbi.PackageTracker/DesignTimeBuild
-/.vs/Carubbi.PackageTracker/v15/Server/sqlite3
-/Carubbi.PackageTracker.BLL/bin
-/Carubbi.PackageTracker.BLL/obj/Debug
-/Carubbi.PackageTracker.BLL/obj/Release
-/Carubbi.PackageTracker.UI/bin
-/Carubbi.PackageTracker.UI/obj
-/packages/HtmlAgilityPack.1.4.9.5
+.vs
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
