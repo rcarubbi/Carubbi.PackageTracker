@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Carubbi.PackageTracker.UI
@@ -15,7 +13,7 @@ namespace Carubbi.PackageTracker.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPackageTracker());
+            Application.Run(new FrmPackageTracker());
         }
     }
 }

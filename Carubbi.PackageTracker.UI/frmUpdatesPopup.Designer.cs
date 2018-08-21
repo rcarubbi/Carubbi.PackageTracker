@@ -1,11 +1,14 @@
-﻿namespace Carubbi.PackageTracker.UI
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Carubbi.PackageTracker.UI
 {
-    partial class frmUpdatesPopup
+    partial class FrmUpdatesPopup
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -55,7 +58,7 @@
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // frmUpdatesPopup
             // 
@@ -68,7 +71,7 @@
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmUpdatesPopup";
+            this.Name = "FrmUpdatesPopup";
             this.Text = "Updates";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUpdates)).EndInit();
             this.ResumeLayout(false);
@@ -77,7 +80,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvUpdates;
-        private System.Windows.Forms.Button btnClose;
+        private DataGridView dgvUpdates;
+        private Button btnClose;
     }
 }

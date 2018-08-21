@@ -6,25 +6,66 @@ using System.Windows.Forms;
 
 namespace Carubbi.PackageTracker.UI
 {
-    public partial class frmPackageTracker : Form
+    public partial class FrmPackageTracker : Form
     {
-        public frmPackageTracker()
+        public FrmPackageTracker()
         {
             InitializeComponent();
         }
 
         private PackageMonitor _monitor;
-        private frmConfig _config;
-        private frmUpdatesPopup _updatesPopup;
 
+        private FrmConfig _config;
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private FrmUpdatesPopup _updatesPopup;
+
+        private Package _packageSelected;
+
+        private void RefreshPackages()
+        {
+            try
+            {
+                gdvPackages.DataSource = null;
+                gdvPackages.DataSource = _monitor.Packages;
+                gdvPackages.Columns[0].Width = 400;
+                gdvPackages.Columns[1].Width = 150;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ModifyButtons(bool enable)
+        {
+            if (btnAdd.InvokeRequired)
+            {
+                var method = new Action<bool>(ModifyButtons);
+                object[] parametro = { enable };
+                Invoke(method, parametro);
+            }
+            else
+            {
+                btnAdd.Enabled =
+                    btnRemove.Enabled =
+                        btnSeeUpdates.Enabled =
+                            enable;
+            }
+        }
+
+        private void LoadCycles()
+        {
+            cboCycles.Items.AddRange(new object[] { 1, 5, 10, 15, 20, 25, 30, 60 });
+            cboCycles.SelectedItem = 30;
+        }
+
+        protected virtual void BtnAdd_Click(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(txtTrackNumber.Text))
                 {
-                    var p = new Package() { Alias = txtAlias.Text, TrackNumber = txtTrackNumber.Text };
+                    var p = new Package { Alias = txtAlias.Text, TrackNumber = txtTrackNumber.Text };
                     if (!_monitor.Packages.Contains(p, Package.CompararPorTrackNumber))
                     {
                         _monitor.Packages.Add(p);
@@ -43,30 +84,15 @@ namespace Carubbi.PackageTracker.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void RefreshPackages()
-        {
-            try
-            {
-                gdvPackages.DataSource = null;
-                gdvPackages.DataSource = _monitor.Packages;
-                gdvPackages.Columns[0].Width = 400;
-                gdvPackages.Columns[1].Width = 150;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
+   
+        protected virtual void BtnRemove_Click(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrEmpty(txtTrackNumber.Text)) return;
 
-                var p = new Package() { TrackNumber = txtTrackNumber.Text, Alias = txtAlias.Text };
+                var p = new Package { TrackNumber = txtTrackNumber.Text, Alias = txtAlias.Text };
+
                 if (_monitor.Packages.Contains(p, Package.CompararPorTrackNumber))
                 {
                     var deletePackage = _monitor.Packages.Single(i => i.TrackNumber == txtTrackNumber.Text);
@@ -79,11 +105,11 @@ namespace Carubbi.PackageTracker.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void mnuStartStop_Click(object sender, EventArgs e)
+        protected virtual void MnuStartStop_Click(object sender, EventArgs e)
         {
             try
             {
@@ -98,14 +124,14 @@ namespace Carubbi.PackageTracker.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
- 
-        private void frmPackageTracker_Load(object sender, EventArgs e)
+
+        protected virtual void FrmPackageTracker_Load(object sender, EventArgs e)
         {
             try
             {
                 _monitor = new PackageMonitor();
-                _monitor.PackageModified += new EventHandler<NotifyUpdateEventArgs>(_monitor_PackageModified);
-                _monitor.StatusModified += new EventHandler(_monitor_StatusModified);
+                _monitor.PackageModified += _monitor_PackageModified;
+                _monitor.StatusModified += _monitor_StatusModified;
                 LoadCycles();
                
             }
@@ -115,15 +141,15 @@ namespace Carubbi.PackageTracker.UI
             }
         }
 
-        void _config_Ok(object sender, EventArgs e)
+        protected virtual void _config_Ok(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_monitor.Config.PhoneNumber)) return;
             _monitor.SmsNotification = false;
             _monitor.Config.PhoneNumber = string.Empty;
-            lblStatusSmsNotification.Text = string.Format("Sms Notification: Disabled");
+            lblStatusSmsNotification.Text = "Sms Notification: Disabled";
         }
 
-        void _monitor_StatusModified(object sender, EventArgs e)
+        protected virtual void _monitor_StatusModified(object sender, EventArgs e)
         {
             ModifyButtons(_monitor.State != MonitorState.Running);
 
@@ -131,34 +157,8 @@ namespace Carubbi.PackageTracker.UI
             notifyIcon.Text = $"Package Tracker - {_monitor.State.ToString()}";
             Application.DoEvents();
         }
-
-      
-      
-        private void ModifyButtons(bool enable)
-        {
-            if (btnAdd.InvokeRequired)
-            {
-                var method = new Action<bool>(ModifyButtons);
-                object[] parametro = { enable };
-                Invoke(method, parametro);
-            }
-            else
-            {
-                btnAdd.Enabled =
-                          btnRemove.Enabled =
-                          btnSeeUpdates.Enabled =
-                          enable;
-            }
-        }
-
-
-        private void LoadCycles()
-        {
-            cboCycles.Items.AddRange(new object[] { 1, 5, 10, 15, 20, 25, 30, 60 });
-            cboCycles.SelectedItem = 30;
-        }
-
-        void _monitor_PackageModified(object sender, NotifyUpdateEventArgs e)
+   
+        protected virtual void _monitor_PackageModified(object sender, NotifyUpdateEventArgs e)
         {
             try
             {
@@ -166,26 +166,24 @@ namespace Carubbi.PackageTracker.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void frmPackageTracker_SizeChanged(object sender, EventArgs e)
+        protected virtual void FrmPackageTracker_SizeChanged(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
                 Hide();
         }
 
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        protected virtual void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Show();
-                WindowState = FormWindowState.Normal;
-            }
+            if (WindowState != FormWindowState.Minimized) return;
+            Show();
+            WindowState = FormWindowState.Normal;
         }
 
-        private void mnuLoad_Click(object sender, EventArgs e)
+        protected virtual void MnuLoad_Click(object sender, EventArgs e)
         {
             try
             {
@@ -194,11 +192,11 @@ namespace Carubbi.PackageTracker.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void mnuSave_Click(object sender, EventArgs e)
+        protected virtual void MnuSave_Click(object sender, EventArgs e)
         {
             try
             {
@@ -206,19 +204,19 @@ namespace Carubbi.PackageTracker.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
-        private void mnuVoiceNotification_Click(object sender, EventArgs e)
+        protected virtual void MnuVoiceNotification_Click(object sender, EventArgs e)
         {
             _monitor.VoiceNotification = !_monitor.VoiceNotification;
             var voiceNotification = _monitor.VoiceNotification ? "Enabled" : "Disabled";
-            lblStatusVoiceNotification.Text = $"Voice Notification: {voiceNotification}";
+            lblStatusVoiceNotification.Text = $@"Voice Notification: {voiceNotification}";
         }
 
-        private void mnuSMSNotification_Click(object sender, EventArgs e)
+        protected virtual void MnuSMSNotification_Click(object sender, EventArgs e)
         {
             try
             {
@@ -233,17 +231,15 @@ namespace Carubbi.PackageTracker.UI
                     }
                 }
                 var smsNotification = _monitor.SmsNotification ? "Enabled" : "Disabled";
-                lblStatusSmsNotification.Text = $"Sms Notification: {smsNotification}";
+                lblStatusSmsNotification.Text = $@"Sms Notification: {smsNotification}";
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-
-        private void gdvPackages_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        protected virtual void GdvPackages_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0) return;
             txtAlias.Text = _monitor.Packages[e.RowIndex].Alias;
@@ -251,13 +247,11 @@ namespace Carubbi.PackageTracker.UI
             _packageSelected = _monitor.Packages[e.RowIndex];
         }
 
-        private Package _packageSelected;
-
-        private void btnSeeUpdates_Click(object sender, EventArgs e)
+        protected virtual void BtnSeeUpdates_Click(object sender, EventArgs e)
         {
             if (_packageSelected != null)
             {
-               _updatesPopup = new frmUpdatesPopup(_packageSelected);
+               _updatesPopup = new FrmUpdatesPopup(_packageSelected);
                _updatesPopup.Show(this);
             }
             else
@@ -265,60 +259,55 @@ namespace Carubbi.PackageTracker.UI
 
         }
 
-      
-        private void frmPackageTracker_FormClosing(object sender, FormClosingEventArgs e)
+        protected virtual void FrmPackageTracker_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason != CloseReason.UserClosing) return;
             e.Cancel = true;
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
 
         }
 
-        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        protected virtual void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && this.WindowState != FormWindowState.Minimized)
+            if (e.Button == MouseButtons.Right && WindowState != FormWindowState.Minimized)
             {
                 notifyMenu.Hide();
             }
         }
 
-        private void mnuExit_Click(object sender, EventArgs e)
+        protected virtual void MnuExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void mnuRefresh_Click(object sender, EventArgs e)
+        protected virtual void MnuRefresh_Click(object sender, EventArgs e)
         {
             try
             {
-                var t = new Thread(new ThreadStart(_monitor.Refresh));
+                var t = new Thread(_monitor.Refresh);
                 t.Start();
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void mnuStartStopContext_Click(object sender, EventArgs e)
+        protected virtual void MnuStartStopContext_Click(object sender, EventArgs e)
         {
-            mnuStartStop_Click(sender, EventArgs.Empty);
+            MnuStartStop_Click(sender, EventArgs.Empty);
         }
 
-        private void mnuRefreshNow_Click(object sender, EventArgs e)
+        protected virtual void MnuRefreshNow_Click(object sender, EventArgs e)
         {
-            mnuRefresh_Click(sender, EventArgs.Empty);
+            MnuRefresh_Click(sender, EventArgs.Empty);
         }
 
-        private void mnuConnectionVariables_Click(object sender, EventArgs e)
+        protected virtual void MnuConnectionVariables_Click(object sender, EventArgs e)
         {
-            _config = new frmConfig(_monitor);
-            _config.Ok += new EventHandler(_config_Ok);
+            _config = new FrmConfig(_monitor);
+            _config.Ok += _config_Ok;
             _config.Show(this);
         }
-
-   
-
-
     }
 }

@@ -75,10 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonitorConfig.cs" />
+    <Compile Include="MonitorState.cs" />
+    <Compile Include="NotifyUpdateEventArgs.cs" />
+    <Compile Include="PackageEqualityComparer.cs" />
     <Compile Include="PackageMonitor.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateComparer.cs" />
     <Compile Include="UpdateEntry.cs" />
+    <Compile Include="UpdateEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

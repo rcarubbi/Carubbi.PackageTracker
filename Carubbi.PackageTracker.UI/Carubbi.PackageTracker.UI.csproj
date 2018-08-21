@@ -75,34 +75,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmConfig.cs">
+    <Compile Include="FrmConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConfig.Designer.cs">
-      <DependentUpon>frmConfig.cs</DependentUpon>
+    <Compile Include="FrmConfig.Designer.cs">
+      <DependentUpon>FrmConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPackageTracker.cs">
+    <Compile Include="FrmPackageTracker.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPackageTracker.Designer.cs">
-      <DependentUpon>frmPackageTracker.cs</DependentUpon>
+    <Compile Include="FrmPackageTracker.Designer.cs">
+      <DependentUpon>FrmPackageTracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmUpdatesPopup.cs">
+    <Compile Include="FrmUpdatesPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmUpdatesPopup.Designer.cs">
-      <DependentUpon>frmUpdatesPopup.cs</DependentUpon>
+    <Compile Include="FrmUpdatesPopup.Designer.cs">
+      <DependentUpon>FrmUpdatesPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmConfig.resx">
-      <DependentUpon>frmConfig.cs</DependentUpon>
+    <EmbeddedResource Include="FrmConfig.resx">
+      <DependentUpon>FrmConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPackageTracker.resx">
-      <DependentUpon>frmPackageTracker.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPackageTracker.resx">
+      <DependentUpon>FrmPackageTracker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmUpdatesPopup.resx">
-      <DependentUpon>frmUpdatesPopup.cs</DependentUpon>
+    <EmbeddedResource Include="FrmUpdatesPopup.resx">
+      <DependentUpon>FrmUpdatesPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

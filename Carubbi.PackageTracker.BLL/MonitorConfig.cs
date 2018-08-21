@@ -5,8 +5,6 @@ namespace Carubbi.PackageTracker.BLL
     [Serializable]
     public class MonitorConfig
     {
-       
-
         public string SmsPassword
         {
             get;

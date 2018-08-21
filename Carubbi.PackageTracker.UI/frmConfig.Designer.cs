@@ -1,11 +1,14 @@
-﻿namespace Carubbi.PackageTracker.UI
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Carubbi.PackageTracker.UI
 {
-    partial class frmConfig
+    partial class FrmConfig
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -152,7 +155,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmConfig";
+            this.Name = "FrmConfig";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.frmConfig_Load);
             this.grpSMS.ResumeLayout(false);
@@ -166,15 +169,15 @@
         #endregion
 
  
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.GroupBox grpSMS;
-        private System.Windows.Forms.TextBox txtSmsPassword;
-        private System.Windows.Forms.TextBox txtPhoneNumber;
-        private System.Windows.Forms.Label lblSmsPassword;
-        private System.Windows.Forms.Label lblPhoneNumber;
-        private System.Windows.Forms.GroupBox grpStorage;
-        private System.Windows.Forms.TextBox txtPath;
-        private System.Windows.Forms.Label lblStoragePath;
+        private Button btnCancel;
+        private Button btnOK;
+        private GroupBox grpSMS;
+        private TextBox txtSmsPassword;
+        private TextBox txtPhoneNumber;
+        private Label lblSmsPassword;
+        private Label lblPhoneNumber;
+        private GroupBox grpStorage;
+        private TextBox txtPath;
+        private Label lblStoragePath;
     }
 }

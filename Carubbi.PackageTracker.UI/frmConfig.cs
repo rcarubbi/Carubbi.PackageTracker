@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Carubbi.PackageTracker.BLL;
+using System;
 using System.Windows.Forms;
-using Carubbi.PackageTracker.BLL;
 
 namespace Carubbi.PackageTracker.UI
 {
-    public partial class frmConfig : Form
+    public partial class FrmConfig : Form
     {
         public PackageMonitor Monitor
         {
             get;
-            private set;
         }
 
         public event EventHandler Ok;
 
-
-        public frmConfig(PackageMonitor monitor)
+        public FrmConfig(PackageMonitor monitor)
         {
             InitializeComponent();
             Monitor = monitor;
@@ -29,15 +21,14 @@ namespace Carubbi.PackageTracker.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             SaveConfig();
-            if (Ok != null)
-                Ok(sender, e);
-            this.Close();
+            Ok?.Invoke(sender, e);
+            Close();
         }
 
         private void SaveConfig()
@@ -59,9 +50,6 @@ namespace Carubbi.PackageTracker.UI
             txtPath.Text = Monitor.Path;
             txtPhoneNumber.Text = Monitor.Config.PhoneNumber;
             txtSmsPassword.Text = Monitor.Config.SmsPassword;
-     
         }
-
-     
     }
 }

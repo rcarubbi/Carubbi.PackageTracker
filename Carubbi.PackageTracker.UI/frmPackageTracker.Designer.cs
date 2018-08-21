@@ -1,11 +1,14 @@
-﻿namespace Carubbi.PackageTracker.UI
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Carubbi.PackageTracker.UI
 {
-    partial class frmPackageTracker
+    partial class FrmPackageTracker
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,7 +32,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPackageTracker));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPackageTracker));
             this.gdvPackages = new System.Windows.Forms.DataGridView();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -84,7 +87,7 @@
             this.gdvPackages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gdvPackages.Size = new System.Drawing.Size(638, 248);
             this.gdvPackages.TabIndex = 1;
-            this.gdvPackages.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gdvPackages_CellMouseClick);
+            this.gdvPackages.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GdvPackages_CellMouseClick);
             // 
             // btnRemove
             // 
@@ -96,7 +99,7 @@
             this.btnRemove.Text = "-";
             this.toolTip.SetToolTip(this.btnRemove, "Remove Pakcage");
             this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // btnAdd
             // 
@@ -108,7 +111,7 @@
             this.btnAdd.Text = "+";
             this.toolTip.SetToolTip(this.btnAdd, "Add Package");
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // lblAlias
             // 
@@ -160,7 +163,7 @@
             this.btnSeeUpdates.Text = "...";
             this.toolTip.SetToolTip(this.btnSeeUpdates, "Show Updates");
             this.btnSeeUpdates.UseVisualStyleBackColor = true;
-            this.btnSeeUpdates.Click += new System.EventHandler(this.btnSeeUpdates_Click);
+            this.btnSeeUpdates.Click += new System.EventHandler(this.BtnSeeUpdates_Click);
             // 
             // txtTrackNumber
             // 
@@ -187,8 +190,8 @@
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "Package Tracker";
             this.notifyIcon.Visible = true;
-            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseClick);
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
             // notifyMenu
             // 
@@ -206,14 +209,14 @@
             this.mnuRefresh.Name = "mnuRefresh";
             this.mnuRefresh.Size = new System.Drawing.Size(184, 30);
             this.mnuRefresh.Text = "Refresh Now";
-            this.mnuRefresh.Click += new System.EventHandler(this.mnuRefresh_Click);
+            this.mnuRefresh.Click += new System.EventHandler(this.MnuRefresh_Click);
             // 
             // mnuStartStopContext
             // 
             this.mnuStartStopContext.Name = "mnuStartStopContext";
             this.mnuStartStopContext.Size = new System.Drawing.Size(184, 30);
             this.mnuStartStopContext.Text = "Start/Stop";
-            this.mnuStartStopContext.Click += new System.EventHandler(this.mnuStartStopContext_Click);
+            this.mnuStartStopContext.Click += new System.EventHandler(this.MnuStartStopContext_Click);
             // 
             // mnuSeparator
             // 
@@ -225,7 +228,7 @@
             this.mnuExit.Name = "mnuExit";
             this.mnuExit.Size = new System.Drawing.Size(184, 30);
             this.mnuExit.Text = "Exit";
-            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            this.mnuExit.Click += new System.EventHandler(this.MnuExit_Click);
             // 
             // statusStrip
             // 
@@ -287,14 +290,14 @@
             this.mnuStartStop.Name = "mnuStartStop";
             this.mnuStartStop.Size = new System.Drawing.Size(217, 30);
             this.mnuStartStop.Text = "Start/Stop";
-            this.mnuStartStop.Click += new System.EventHandler(this.mnuStartStop_Click);
+            this.mnuStartStop.Click += new System.EventHandler(this.MnuStartStop_Click);
             // 
             // mnuRefreshNow
             // 
             this.mnuRefreshNow.Name = "mnuRefreshNow";
             this.mnuRefreshNow.Size = new System.Drawing.Size(217, 30);
             this.mnuRefreshNow.Text = "Refresh Now";
-            this.mnuRefreshNow.Click += new System.EventHandler(this.mnuRefreshNow_Click);
+            this.mnuRefreshNow.Click += new System.EventHandler(this.MnuRefreshNow_Click);
             // 
             // toolStripSeparator1
             // 
@@ -306,14 +309,14 @@
             this.mnuSave.Name = "mnuSave";
             this.mnuSave.Size = new System.Drawing.Size(217, 30);
             this.mnuSave.Text = "Save Packages";
-            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            this.mnuSave.Click += new System.EventHandler(this.MnuSave_Click);
             // 
             // mnuLoad
             // 
             this.mnuLoad.Name = "mnuLoad";
             this.mnuLoad.Size = new System.Drawing.Size(217, 30);
             this.mnuLoad.Text = "Load Packages";
-            this.mnuLoad.Click += new System.EventHandler(this.mnuLoad_Click);
+            this.mnuLoad.Click += new System.EventHandler(this.MnuLoad_Click);
             // 
             // mnuOptions
             // 
@@ -353,7 +356,7 @@
             this.mnuVoiceNotification.Name = "mnuVoiceNotification";
             this.mnuVoiceNotification.Size = new System.Drawing.Size(239, 30);
             this.mnuVoiceNotification.Text = "Voice Notification";
-            this.mnuVoiceNotification.Click += new System.EventHandler(this.mnuVoiceNotification_Click);
+            this.mnuVoiceNotification.Click += new System.EventHandler(this.MnuVoiceNotification_Click);
             // 
             // mnuSMSNotification
             // 
@@ -361,14 +364,14 @@
             this.mnuSMSNotification.Name = "mnuSMSNotification";
             this.mnuSMSNotification.Size = new System.Drawing.Size(239, 30);
             this.mnuSMSNotification.Text = "SMS Notification";
-            this.mnuSMSNotification.Click += new System.EventHandler(this.mnuSMSNotification_Click);
+            this.mnuSMSNotification.Click += new System.EventHandler(this.MnuSMSNotification_Click);
             // 
             // mnuConfig
             // 
             this.mnuConfig.Name = "mnuConfig";
             this.mnuConfig.Size = new System.Drawing.Size(234, 30);
             this.mnuConfig.Text = "Configuration";
-            this.mnuConfig.Click += new System.EventHandler(this.mnuConnectionVariables_Click);
+            this.mnuConfig.Click += new System.EventHandler(this.MnuConnectionVariables_Click);
             // 
             // frmPackageTracker
             // 
@@ -384,11 +387,11 @@
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.Name = "frmPackageTracker";
+            this.Name = "FrmPackageTracker";
             this.Text = "Package Tracker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPackageTracker_FormClosing);
-            this.Load += new System.EventHandler(this.frmPackageTracker_Load);
-            this.SizeChanged += new System.EventHandler(this.frmPackageTracker_SizeChanged);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPackageTracker_FormClosing);
+            this.Load += new System.EventHandler(this.FrmPackageTracker_Load);
+            this.SizeChanged += new System.EventHandler(this.FrmPackageTracker_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.gdvPackages)).EndInit();
             this.grpPackageData.ResumeLayout(false);
             this.grpPackageData.PerformLayout();
@@ -404,40 +407,40 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView gdvPackages;
-        private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label lblAlias;
-        private System.Windows.Forms.Label lblTrackNumber;
-        private System.Windows.Forms.GroupBox grpPackageData;
-        private System.Windows.Forms.TextBox txtTrackNumber;
-        private System.Windows.Forms.TextBox txtAlias;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-        private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem mnuMonitor;
-        private System.Windows.Forms.ToolStripMenuItem mnuStartStop;
-        private System.Windows.Forms.ToolStripMenuItem mnuOptions;
-        private System.Windows.Forms.ToolStripMenuItem mnuLoad;
-        private System.Windows.Forms.ToolStripMenuItem mnuSave;
-        private System.Windows.Forms.ToolStripMenuItem notificationsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnuVoiceNotification;
-        private System.Windows.Forms.ToolStripMenuItem mnuSMSNotification;
-        private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Button btnSeeUpdates;
-        private System.Windows.Forms.ToolStripStatusLabel lblStatusVoiceNotification;
-        private System.Windows.Forms.ToolStripStatusLabel lblStatusSmsNotification;
-        private System.Windows.Forms.ContextMenuStrip notifyMenu;
-        private System.Windows.Forms.ToolStripMenuItem mnuExit;
-        private System.Windows.Forms.ToolStripMenuItem mnuRefresh;
-        private System.Windows.Forms.ToolStripMenuItem mnuStartStopContext;
-        private System.Windows.Forms.ToolStripSeparator mnuSeparator;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem mnuRefreshNow;
-        private System.Windows.Forms.ToolStripMenuItem mnuConfig;
-        private System.Windows.Forms.ToolStripMenuItem mnuCycles;
-        private System.Windows.Forms.ToolStripComboBox cboCycles;
+        private DataGridView gdvPackages;
+        private Button btnRemove;
+        private Button btnAdd;
+        private Label lblAlias;
+        private Label lblTrackNumber;
+        private GroupBox grpPackageData;
+        private TextBox txtTrackNumber;
+        private TextBox txtAlias;
+        private NotifyIcon notifyIcon;
+        private StatusStrip statusStrip;
+        private ToolStripStatusLabel lblStatus;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem mnuMonitor;
+        private ToolStripMenuItem mnuStartStop;
+        private ToolStripMenuItem mnuOptions;
+        private ToolStripMenuItem mnuLoad;
+        private ToolStripMenuItem mnuSave;
+        private ToolStripMenuItem notificationsToolStripMenuItem;
+        private ToolStripMenuItem mnuVoiceNotification;
+        private ToolStripMenuItem mnuSMSNotification;
+        private ToolTip toolTip;
+        private Button btnSeeUpdates;
+        private ToolStripStatusLabel lblStatusVoiceNotification;
+        private ToolStripStatusLabel lblStatusSmsNotification;
+        private ContextMenuStrip notifyMenu;
+        private ToolStripMenuItem mnuExit;
+        private ToolStripMenuItem mnuRefresh;
+        private ToolStripMenuItem mnuStartStopContext;
+        private ToolStripSeparator mnuSeparator;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem mnuRefreshNow;
+        private ToolStripMenuItem mnuConfig;
+        private ToolStripMenuItem mnuCycles;
+        private ToolStripComboBox cboCycles;
     }
 }
 

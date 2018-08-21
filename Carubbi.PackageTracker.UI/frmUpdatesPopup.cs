@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Carubbi.PackageTracker.BLL;
+using System;
 using System.Windows.Forms;
-using Carubbi.PackageTracker.BLL;
 
 namespace Carubbi.PackageTracker.UI
 {
-    public partial class frmUpdatesPopup : Form
+    public partial class FrmUpdatesPopup : Form
     {
-        public frmUpdatesPopup(Package p)
+        public FrmUpdatesPopup(Package p)
         {
             InitializeComponent();
             Package = p;
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private Package Package
         {
             set
             {
-                this.Text += string.Concat(" - ", value.Alias);
+                Text += string.Concat(" - ", value.Alias);
 
                 dgvUpdates.DataSource = value.Updates;
                 dgvUpdates.Columns[0].Width = 150;
