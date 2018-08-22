@@ -42,8 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.TTS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Referencias\Google.TTS.dll</HintPath>
+      <HintPath>..\packages\Carubbi.Google.TTS.1.0.0.0\lib\net35\Google.TTS.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
